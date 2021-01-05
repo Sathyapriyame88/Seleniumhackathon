@@ -1,5 +1,7 @@
 package salesforceHackathon.salesforce;
 
+import java.util.Map;
+
 import org.openqa.selenium.By;
 
 import salesforceUtility.SalesforceUtility;
@@ -9,7 +11,8 @@ public class TC33FNLNinHome extends SalesforceUtility{
 	public static void main(String[] args) throws Exception{
 		launchBrowser();
 		gotosalesforceURL();
-		loginToSalesforce("spt@abc.com", "sathyasampu1");
+		Map<String, String>  rowMap = readRowFromExcel(34);
+		loginToSalesforce(rowMap.get("userName"), rowMap.get("Password"));
 		firstLastnameInHome();
 		quitBrowser();
 
@@ -22,8 +25,8 @@ public class TC33FNLNinHome extends SalesforceUtility{
 		 driver.switchTo().activeElement();
 		driver.findElement(By.id("tryLexDialogX")).click();
 		System.out.println("First and Last Name is Displayed as Link");
-		waitExplicitly(10,driver.findElement(By.xpath("//a[@href='/_ui/core/userprofile/UserProfilePage'][normalize-space()='SathyaPriya T']")));
-		driver.findElement(By.xpath("//a[@href='/_ui/core/userprofile/UserProfilePage'][normalize-space()='SathyaPriya T']")).click();
+		waitExplicitly(10,driver.findElement(By.xpath("//tbody/tr[1]/td[2]/div[1]/div[1]/div[1]/div[2]/span[1]/h1[1]/a[1]")));
+		driver.findElement(By.xpath("//tbody/tr[1]/td[2]/div[1]/div[1]/div[1]/div[2]/span[1]/h1[1]/a[1]")).click();
 		System.out.println("This page is same as the My Profile page");
 	}
 

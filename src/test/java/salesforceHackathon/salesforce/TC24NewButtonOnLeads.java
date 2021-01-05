@@ -1,5 +1,7 @@
 package salesforceHackathon.salesforce;
 
+import java.util.Map;
+
 import org.openqa.selenium.By;
 
 import salesforceUtility.SalesforceUtility;
@@ -10,12 +12,13 @@ public class TC24NewButtonOnLeads extends SalesforceUtility {
 
 		launchBrowser();
 		gotosalesforceURL();
-		loginToSalesforce("spt@abc.com", "sathyasampu1");
-		newButtonOnLeads();
+		 Map<String, String>  rowMap = readRowFromExcel(25);
+			loginToSalesforce(rowMap.get("userName"), rowMap.get("Password"));
+		newButtonOnLeads(rowMap.get("Last Name"));
 		quitBrowser();
 
 	}
-	public static void newButtonOnLeads()throws Exception{
+	public static void newButtonOnLeads(String lastname)throws Exception{
 		waitExplicitly(10,driver.findElement(By.xpath("//li[@id='Lead_Tab']")));
 		 driver.findElement(By.xpath("//li[@id='Lead_Tab']")).click();
 		 Thread.sleep(3000);
@@ -25,7 +28,7 @@ public class TC24NewButtonOnLeads extends SalesforceUtility {
 		 driver.findElement(By.xpath("//input[@title='New']")).click();
 		 
 		 waitExplicitly(10,driver.findElement(By.xpath("//input[@id='name_lastlea2']")));
-		 driver.findElement(By.xpath("//input[@id='name_lastlea2']")).sendKeys("ABCD");;
+		 driver.findElement(By.xpath("//input[@id='name_lastlea2']")).sendKeys(lastname);;
 		 
 		 waitExplicitly(10,driver.findElement(By.xpath("//input[@id='lea3']")));
 		 driver.findElement(By.xpath("//input[@id='lea3']")).sendKeys("ABCD");

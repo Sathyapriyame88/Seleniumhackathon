@@ -1,24 +1,27 @@
 package salesforceHackathon.salesforce;
 
+import java.util.Map;
+import salesforceHackathon.salesforce.TC10CreateAccount;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 
-import salesforceUtility.SalesforceUtility;
-import salesforceHackathon.salesforce.TC10CreateAccount; 
+import salesforceUtility.SalesforceUtility; 
 
 public class TC13MergeAccount extends SalesforceUtility{
 
 	public static void main(String[] args)throws Exception {
 		launchBrowser();
 		gotosalesforceURL();
-		 loginToSalesforce("spt@abc.com", "sathyasampu1");
-		 TC10CreateAccount.createAccount();
-		 mergeAccount();
+		 Map<String, String>  rowMap = readRowFromExcel(14);
+			loginToSalesforce(rowMap.get("userName"), rowMap.get("Password"));
+		TC10CreateAccount.createAccount(rowMap.get("accountname"));
+		 mergeAccount(rowMap.get("accountname"));
 		 quitBrowser();
 		
 
 	}
-	public static void mergeAccount() throws Exception{
+	public static void mergeAccount(String accName) throws Exception{
 		waitExplicitly1(driver, driver.findElement(By.xpath("//li[@id='Account_Tab']")));
 		driver.findElement(By.xpath("//li[@id='Account_Tab']")).click();
 		Thread.sleep(3000);
@@ -28,7 +31,7 @@ public class TC13MergeAccount extends SalesforceUtility{
 	    waitExplicitly(10, driver.findElement(By.xpath("//a[contains(text(),'Merge Accounts')]")));
 	    driver.findElement(By.xpath("//a[contains(text(),'Merge Accounts')]")).click();
 	    waitExplicitly(10, driver.findElement(By.xpath("//input[@id='srch']")));
-	    driver.findElement(By.xpath("//input[@id='srch']")).sendKeys("Automation");
+	    driver.findElement(By.xpath("//input[@id='srch']")).sendKeys(accName);
 	    waitExplicitly(10, driver.findElement(By.xpath("//input[@value='Find Accounts']")));
 	    driver.findElement(By.xpath("//input[@value='Find Accounts']")).click();
 	    waitExplicitly(10, driver.findElement(By.xpath("(//input[@title='Next'])[2]")));

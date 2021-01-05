@@ -1,5 +1,7 @@
 package salesforceHackathon.salesforce;
 
+import java.util.Map;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
@@ -10,12 +12,13 @@ public class TC10CreateAccount extends SalesforceUtility {
 	public static void main(String[] args) throws Exception{
 		launchBrowser();
 		gotosalesforceURL();
-		loginToSalesforce("spt@abc.com", "sathyasampu1");
-		createAccount();
+		Map<String, String>  rowMap = readRowFromExcel(11);
+		loginToSalesforce(rowMap.get("userName"), rowMap.get("Password"));
+		createAccount(rowMap.get("accountname"));
 		quitBrowser();
 
 	}
-	public static void createAccount()throws Exception{
+	public static void createAccount(String accountName)throws Exception{
 		waitExplicitly1(driver, driver.findElement(By.xpath("//li[@id='Account_Tab']")));
 		driver.findElement(By.xpath("//li[@id='Account_Tab']")).click();
 		Thread.sleep(3000);
@@ -24,7 +27,7 @@ public class TC10CreateAccount extends SalesforceUtility {
 	    waitExplicitly1(driver, driver.findElement(By.xpath("//input[@title='New']")));
 		driver.findElement(By.xpath("//input[@title='New']")).click();
 		waitExplicitly1(driver, driver.findElement(By.xpath("//input[@id='acc2']")));
-		driver.findElement(By.xpath("//input[@id='acc2']")).sendKeys("Automation");;
+		driver.findElement(By.xpath("//input[@id='acc2']")).sendKeys(accountName);;
 		Select se=new Select(driver.findElement(By.id("acc6")));
 		se.selectByVisibleText("Technology Partner");
 		Thread.sleep(3000);

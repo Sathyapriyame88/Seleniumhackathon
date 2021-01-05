@@ -1,5 +1,7 @@
 package salesforceHackathon.salesforce;
 
+import java.util.Map;
+
 import salesforceUtility.SalesforceUtility;
 
 public class TC4BWrongUserPassword extends SalesforceUtility{
@@ -7,7 +9,8 @@ public class TC4BWrongUserPassword extends SalesforceUtility{
 	public static void main(String[] args)throws Exception {
 		launchBrowser();
 		gotosalesforceURL();
-		loginToSalesforce("123", "22131");
+		Map<String, String>  rowMap = readRowFromExcel(5);
+		loginToSalesforce(rowMap.get("userName"), rowMap.get("Password"));
 		quitBrowser();
 	}
 

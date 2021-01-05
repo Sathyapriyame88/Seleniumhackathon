@@ -1,6 +1,7 @@
 package salesforceHackathon.salesforce;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 
@@ -11,7 +12,8 @@ public class TC8DeveloperConsole extends SalesforceUtility{
 	public static void main(String[] args)throws Exception {
 		launchBrowser();
 		gotosalesforceURL();
-		loginToSalesforce("spt@abc.com", "sathyasampu1");
+		Map<String, String>  rowMap = readRowFromExcel(9);
+		loginToSalesforce(rowMap.get("userName"), rowMap.get("Password"));
 		developerConsole();
 		quitBrowser();
 		

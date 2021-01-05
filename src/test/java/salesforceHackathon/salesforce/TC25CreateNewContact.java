@@ -1,6 +1,7 @@
 package salesforceHackathon.salesforce;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 
@@ -11,12 +12,13 @@ public class TC25CreateNewContact extends SalesforceUtility {
 	public static void main(String[] args) throws Exception{
 		launchBrowser();
 		gotosalesforceURL();
-		loginToSalesforce("spt@abc.com", "sathyasampu1");
-		createNewContact();
+		 Map<String, String>  rowMap = readRowFromExcel(26);
+			loginToSalesforce(rowMap.get("userName"), rowMap.get("Password"));
+		createNewContact(rowMap.get("Last Name"));
 		quitBrowser();
 
 	}
-	public static void createNewContact()throws Exception{
+	public static void createNewContact(String lastname)throws Exception{
 		waitExplicitly(10,driver.findElement(By.xpath("//li[@id='Contact_Tab']")));
 		 driver.findElement(By.xpath("//li[@id='Contact_Tab']")).click();
 		 Thread.sleep(3000);
@@ -27,7 +29,7 @@ public class TC25CreateNewContact extends SalesforceUtility {
 		 driver.findElement(By.xpath("//input[@title='New']")).click();
 		 
 		 waitExplicitly(10,driver.findElement(By.xpath("//input[@id='name_lastcon2']")));
-		 driver.findElement(By.xpath("//input[@id='name_lastcon2']")).sendKeys("Thangaraj");;
+		 driver.findElement(By.xpath("//input[@id='name_lastcon2']")).sendKeys(lastname);;
 		 
 		 waitExplicitly(10,driver.findElement(By.xpath("//img[@title='Account Name Lookup (New Window)']")));
 		 driver.findElement(By.xpath("//img[@title='Account Name Lookup (New Window)']")).click();

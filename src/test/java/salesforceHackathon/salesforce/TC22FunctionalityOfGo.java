@@ -1,5 +1,7 @@
 package salesforceHackathon.salesforce;
 
+import java.util.Map;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
@@ -10,7 +12,8 @@ public class TC22FunctionalityOfGo extends SalesforceUtility{
 	public static void main(String[] args) throws Exception{
 		launchBrowser();
 		gotosalesforceURL();
-		loginToSalesforce("spt@abc.com", "sathyasampu1");
+		 Map<String, String>  rowMap = readRowFromExcel(23);
+			loginToSalesforce(rowMap.get("userName"), rowMap.get("Password"));
 		functionalityOfGo();
 		quitBrowser();
 

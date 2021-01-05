@@ -1,5 +1,7 @@
 package salesforceHackathon.salesforce;
 
+import java.util.Map;
+
 import org.openqa.selenium.By;
 
 import salesforceUtility.SalesforceUtility;
@@ -9,11 +11,12 @@ public class TC26CreateNewViewInContact extends SalesforceUtility {
 	public static void main(String[] args) throws Exception{
 		launchBrowser();
 		gotosalesforceURL();
-		loginToSalesforce("spt@abc.com", "sathyasampu1");
-		createNewViewInContact();
+		 Map<String, String>  rowMap = readRowFromExcel(27);
+		loginToSalesforce(rowMap.get("userName"), rowMap.get("Password"));
+		createNewViewInContact(rowMap.get("AccNewView"));
 		quitBrowser();
 	}
-public static void createNewViewInContact() throws Exception{
+public static void createNewViewInContact(String newcont) throws Exception{
 	waitExplicitly(10,driver.findElement(By.xpath("//li[@id='Contact_Tab']")));
 	 driver.findElement(By.xpath("//li[@id='Contact_Tab']")).click();
 	 Thread.sleep(3000);
@@ -24,7 +27,7 @@ public static void createNewViewInContact() throws Exception{
 	 driver.findElement(By.xpath(" //a[contains(text(),'Create New View')]")).click();
 	 
 	 waitExplicitly1(driver, driver.findElement(By.xpath("//input[@id='fname']")));
-		driver.findElement(By.xpath("//input[@id='fname']")).sendKeys("NewViewContact1");
+		driver.findElement(By.xpath("//input[@id='fname']")).sendKeys(newcont);
 		driver.findElement(By.xpath("//input[@id='devname']")).clear();
 		waitExplicitly1(driver,driver.findElement(By.xpath("//input[@id='devname']")));
 		Thread.sleep(3000);

@@ -1,5 +1,7 @@
 package salesforceHackathon.salesforce;
 
+import java.util.Map;
+
 import org.openqa.selenium.By;
 
 import salesforceUtility.SalesforceUtility;
@@ -9,7 +11,8 @@ public class TC30ErrorMsgInNewViewContact extends  SalesforceUtility {
 	public static void main(String[] args) throws Exception{
 		launchBrowser();
 		gotosalesforceURL();
-		loginToSalesforce("spt@abc.com", "sathyasampu1");
+		Map<String, String>  rowMap = readRowFromExcel(31);
+		loginToSalesforce(rowMap.get("userName"), rowMap.get("Password"));
 	errorMsginViewContact();
 		quitBrowser();
 

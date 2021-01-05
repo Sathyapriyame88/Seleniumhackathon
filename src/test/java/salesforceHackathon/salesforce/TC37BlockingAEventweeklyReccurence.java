@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -15,7 +16,8 @@ public class TC37BlockingAEventweeklyReccurence extends SalesforceUtility{
 	public static void main(String[] args) throws Exception{
 		launchBrowser();
 		gotosalesforceURL();
-		loginToSalesforce("spt@abc.com", "sathyasampu1");
+		Map<String, String>  rowMap = readRowFromExcel(38);
+		loginToSalesforce(rowMap.get("userName"), rowMap.get("Password"));
         blockindAEventWeeklyReccurence();
 		quitBrowser();
 

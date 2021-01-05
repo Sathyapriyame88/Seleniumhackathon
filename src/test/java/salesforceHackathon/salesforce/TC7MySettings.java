@@ -1,6 +1,6 @@
 package salesforceHackathon.salesforce;
 
-import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -13,13 +13,14 @@ public class TC7MySettings extends SalesforceUtility {
 	public static void main(String[] args) throws Exception{
 		launchBrowser();
 		gotosalesforceURL();
-		loginToSalesforce("spt@abc.com", "sathyasampu1");
-		mySettings();
+		Map<String, String>  rowMap = readRowFromExcel(8);
+		loginToSalesforce(rowMap.get("userName"), rowMap.get("Password"));
+		mySettings(rowMap.get("Email"));
 		quitBrowser();
 		
 		
 	}
-	public static void mySettings() throws Exception{
+	public static void mySettings(String email) throws Exception{
 		 waitExplicitly(10, driver.findElement(By.id("userNavLabel")));
 		 driver.findElement(By.id("userNavLabel")).click();
 		 waitExplicitly(10, driver.findElement(By.xpath("//a[contains(text(),'My Settings')]")));
@@ -56,7 +57,7 @@ public class TC7MySettings extends SalesforceUtility {
 	 driver.findElement(By.xpath("//input[@id='sender_name']")).sendKeys("SPT");;
 	 waitExplicitly(10, driver.findElement(By.xpath("//input[@id='sender_email']")));
 	 driver.findElement(By.xpath("//input[@id='sender_email']")).clear();
-	 driver.findElement(By.xpath("//input[@id='sender_email']")).sendKeys("sathyapriyame88@gmail.com");
+	 driver.findElement(By.xpath("//input[@id='sender_email']")).sendKeys(email);
 	 WebElement radio=driver.findElement(By.xpath("//input[@id='auto_bcc1']"));
 	 radio.click();
 	 Thread.sleep(5000);

@@ -1,6 +1,7 @@
 package salesforceHackathon.salesforce;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
@@ -12,13 +13,14 @@ public class TC16CreateNewOpty extends SalesforceUtility {
 	public static void main(String[] args) throws Exception{
 		launchBrowser();
 		gotosalesforceURL();
-		loginToSalesforce("spt@abc.com", "sathyasampu1");
-		createNewOpty();
+		 Map<String, String>  rowMap = readRowFromExcel(17);
+			loginToSalesforce(rowMap.get("userName"), rowMap.get("Password"));
+		createNewOpty(rowMap.get("Opty"));
 		quitBrowser();
 		
 			}
 
-	public static void createNewOpty()throws Exception{
+	public static void createNewOpty(String opty)throws Exception{
 		waitExplicitly(10, driver.findElement(By.xpath("//li[@id='Opportunity_Tab']")));
 		driver.findElement(By.xpath("//li[@id='Opportunity_Tab']")).click();
 		Thread.sleep(5000);

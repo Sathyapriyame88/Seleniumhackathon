@@ -1,5 +1,7 @@
 package salesforceHackathon.salesforce;
 
+import java.util.Map;
+
 import org.openqa.selenium.By;
 
 import salesforceUtility.SalesforceUtility;
@@ -9,8 +11,9 @@ public class TC14CreateAccountreport extends SalesforceUtility {
 	public static void main(String[] args) throws Exception{
 		launchBrowser();
 		gotosalesforceURL();
-		loginToSalesforce("spt@abc.com", "sathyasampu1");
-		 TC10CreateAccount.createAccount();
+		 Map<String, String>  rowMap = readRowFromExcel(15);
+			loginToSalesforce(rowMap.get("userName"), rowMap.get("Password"));
+		 TC10CreateAccount.	createAccount(rowMap.get("accountname"));
 		createAccountReport();
 		quitBrowser();
 		
@@ -43,7 +46,7 @@ public class TC14CreateAccountreport extends SalesforceUtility {
 		
 		
 		waitExplicitly1(driver, driver.findElement(By.xpath("//input[@id='saveReportDlg_reportNameField']")));
-		driver.findElement(By.xpath("//input[@id='saveReportDlg_reportNameField']")).sendKeys("savedreport123");
+		driver.findElement(By.xpath("//input[@id='saveReportDlg_reportNameField']")).sendKeys("savedreport1");
 		
 	
 		

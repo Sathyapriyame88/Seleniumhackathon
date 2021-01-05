@@ -1,5 +1,7 @@
 package salesforceHackathon.salesforce;
 
+import java.util.Map;
+
 import org.openqa.selenium.By;
 
 import salesforceUtility.SalesforceUtility;
@@ -9,12 +11,13 @@ public class TC34EditedLNIsUpdated extends SalesforceUtility{
 	public static void main(String[] args) throws Exception{
 		launchBrowser();
 		gotosalesforceURL();
-		loginToSalesforce("spt@abc.com", "sathyasampu1");
-		editedLastNameUpdated();
+		Map<String, String>  rowMap = readRowFromExcel(35);
+		loginToSalesforce(rowMap.get("userName"), rowMap.get("Password"));
+		editedLastNameUpdated(rowMap.get("Last Name"));
 		quitBrowser();
 
 	}
-	public static void editedLastNameUpdated()throws Exception{
+	public static void editedLastNameUpdated(String lastname)throws Exception{
 		waitExplicitly(10,driver.findElement(By.xpath("//li[@id='home_Tab']")));
 		 driver.findElement(By.xpath("//li[@id='home_Tab']")).click();
 		 Thread.sleep(3000);
@@ -31,7 +34,7 @@ public class TC34EditedLNIsUpdated extends SalesforceUtility{
 		driver.findElement(By.xpath("//a[contains(text(),'About')]")).click();
 		waitExplicitly(10, driver.findElement(By.id("lastName")));
 		driver.findElement(By.id("lastName")).clear();
-		 driver.findElement(By.id("lastName")).sendKeys("Abcd");
+		 driver.findElement(By.id("lastName")).sendKeys(lastname);
 		 //Then click on save all button
 	    driver.findElement(By.xpath("//input[@value='Save All']")).click();
 	    Thread.sleep(3000);
